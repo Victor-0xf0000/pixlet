@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\letpix.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\letpix.dir/objects.a @CMakeFiles\letpix.dir\objects1.rsp
-C:\MinGW\bin\gcc.exe -Wl,--whole-archive CMakeFiles\letpix.dir/objects.a -Wl,--no-whole-archive -o letpix.exe -Wl,--out-implib,libletpix.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\letpix.dir\linkLibs.rsp

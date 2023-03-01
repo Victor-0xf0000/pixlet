@@ -1,3 +1,0 @@
-C:/Users/isaias/Documents/victor/letpix/build/CMakeFiles/letpix.dir
-C:/Users/isaias/Documents/victor/letpix/build/CMakeFiles/edit_cache.dir
-C:/Users/isaias/Documents/victor/letpix/build/CMakeFiles/rebuild_cache.dir
