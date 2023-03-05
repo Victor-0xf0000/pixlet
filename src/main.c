@@ -1,6 +1,7 @@
 #include <stdio.h>
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -28,12 +29,15 @@ void set_pixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
   *target_pixel = pixel;
 }
 
+void save_surface(const char* file_name, SDL_Renderer* renderer, SDL_Surface* surface) {
+    IMG_SavePNG(surface, file_name);
+}
 int main(int argc, const char** argv)
 {
   printf("Welcome to pixlet!\n");
 
   SDL_Init(SDL_INIT_VIDEO);
-
+  IMG_Init(IMG_INIT_PNG);
   SDL_Window* window = SDL_CreateWindow("pixlet", 
       SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
   SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 
@@ -42,7 +46,7 @@ int main(int argc, const char** argv)
   
   SDL_Surface* screen_surface = SDL_GetWindowSurface(window);
   SDL_Surface* sprite_surface = SDL_CreateRGBSurface(0, 
-      WIDTH, HEIGHT, 32, 0, 0, 0, 0);
+      WIDTH, HEIGHT, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
   Pixel* pixels = (Pixel*) malloc(sizeof(Pixel) * WIDTH * HEIGHT);
 
   for (int i = 0; i < WIDTH * HEIGHT; i++)
@@ -105,9 +109,7 @@ int main(int argc, const char** argv)
         pixels[i].g = 0;
         pixels[i].b = 0;
         pixels[i].a = 0;
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        SDL_RenderDrawPoint(renderer, x, y);
-        set_pixel(sprite_surface, x, y, SDL_MapRGB(sprite_surface->format, 0, 0, 0));
+        set_pixel(sprite_surface, x, y, SDL_MapRGBA(sprite_surface->format, 0, 0, 0, 0));
       }
       if ((state & SDL_BUTTON(1)) == SDL_PRESSED)
       {
@@ -115,7 +117,7 @@ int main(int argc, const char** argv)
         pixels[i].g = 5;
         pixels[i].b = 100;
         pixels[i].a = 100;
-        set_pixel(sprite_surface, x, y, SDL_MapRGB(sprite_surface->format, 255, 255, 255));
+        set_pixel(sprite_surface, x, y, SDL_MapRGBA(sprite_surface->format, 255, 255, 255, 255));
       }
     }
     
@@ -126,6 +128,9 @@ int main(int argc, const char** argv)
     SDL_DestroyTexture(texture);
     SDL_RenderPresent(renderer);
   }
+  
+  save_surface("C:\\Users\\isaias\\Documents\\victor\\pixlet\\build\\test.png", 
+      renderer, sprite_surface);
 
   SDL_DestroyWindow(window);
   SDL_DestroyRenderer(renderer);
