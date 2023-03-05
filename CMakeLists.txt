@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(pixlet)
 
-add_executable(pixlet src/main.c)
+add_executable(pixlet src/main.c src/editor.c src/renderer.c src/window.c)
 
 target_include_directories(pixlet PUBLIC include/)
 target_link_libraries(pixlet PUBLIC mingw32 SDL2main SDL2 SDL2_image)
